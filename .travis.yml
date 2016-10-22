@@ -1,0 +1,41 @@
+sudo: required
+dist: xenial
+
+services:
+    - docker
+
+env:
+    global:
+        - DOCKER_VERSION=1.12.2-0~trusty
+        - DOCKER_COMPOSE_VERSION=1.8.0
+
+before_install:
+    # list docker-engine versions
+    - apt-cache madison docker-engine
+
+    # upgrade docker-engine to specific version
+    - sudo apt-get -o Dpkg::Options::="--force-confnew" install -y docker-engine=${DOCKER_VERSION}
+
+    # reinstall docker-compose at specific version
+    - sudo rm -f /usr/local/bin/docker-compose
+    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+    - chmod +x docker-compose
+    - sudo mv docker-compose /usr/local/bin
+
+before_script:
+  - docker-compose up --build -d
+
+script:
+  - ./test.sh
+
+after_script:
+  - docker-compose down
+
+notifications:
+  email:
+    recipients:
+      - danigosa@gmail.com
+      - dani@robbie.ai
+      - dani@infantium.com
+    on_success: change
+    on_failure: change

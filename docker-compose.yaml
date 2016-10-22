@@ -1,0 +1,61 @@
+version: '2'
+services:
+  django-redis:
+    container_name: django-redis-sentinel
+    build: .
+    volumes:
+     - ./:/django-redis
+    depends_on:
+    - redis-master
+    - redis-slave1
+    - redis-slave2
+    - sentinel1
+    - sentinel2
+    - sentinel3
+    ports:
+     - "2005:22"
+  sentinel1:
+    container_name: sentinel1
+    build: sentinel
+    environment:
+    - SENTINEL_DOWN_AFTER=5000
+    - SENTINEL_FAILOVER=180000
+    links:
+    - redis-master
+    - redis-slave1
+    - redis-slave2
+  sentinel2:
+    container_name: sentinel2
+    build: sentinel
+    environment:
+    - SENTINEL_DOWN_AFTER=5000
+    - SENTINEL_FAILOVER=180000
+    links:
+    - redis-master
+    - redis-slave1
+    - redis-slave2
+  sentinel3:
+    container_name: sentinel3
+    build: sentinel
+    environment:
+    - SENTINEL_DOWN_AFTER=5000
+    - SENTINEL_FAILOVER=180000
+    links:
+    - redis-master
+    - redis-slave1
+    - redis-slave2
+  redis-master:
+    container_name: redis-master
+    image: redis
+  redis-slave1:
+    container_name: redis-slave1
+    image: redis
+    command: redis-server --slaveof redis-master 6379
+    links:
+    - redis-master
+  redis-slave2:
+    container_name: redis-slave2
+    image: redis
+    command: redis-server --slaveof redis-master 6379
+    links:
+    - redis-master
