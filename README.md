@@ -1,6 +1,6 @@
 # Django-Redis Client that supports Sentinel Cluster HA
 
-![CI Status](https://travis-ci.org/danigosa/django-redis-sentinel.svg?branch=master) [![PyPI version](https://badge.fury.io/py/django-redis-sentinel-redux.svg)](https://badge.fury.io/py/django-redis-sentinel-redux)
+![CI Status](https://travis-ci.org/danigosa/django-redis-sentinel-redux.svg?branch=master) [![PyPI version](https://badge.fury.io/py/django-redis-sentinel-redux.svg)](https://badge.fury.io/py/django-redis-sentinel-redux)
 
 Extension for the package django-redis(<https://github.com/niwinz/django-redis>) to fully support Redis Sentinel Clusters. This enables having django-redis as an HA Store or Cache in production environments that require HA. For more information about Redis Sentinel HA capabilities visit: http://redis.io/topics/sentinel
 
