@@ -94,7 +94,38 @@ From now on you can use django-redis
     
     $ docker-compose build
     $ docker-compose up -d
-    $ bash run_docker_tests.sh
+    $ ./run_docker_tests.sh
+
+## Testing Failover
+
+Running tests after a failover:
+
+    ----------------------
+    ## In a first terminal
+    $ docker-compose build
+    $ docker-compose up -d
+    $ ./bash-container
+    root@7809ac6b537b:/django-redis-sentinel# cd tests/
+    root@7809ac6b537b:/django-redis-sentinel# ./run_sentinel_tests.sh
+    ----------------------
+    ## In a second terminal, not closing first
+    $ docker pause redis-master
+    ----------------------
+    ## Wait for 5 seconds and run again first terminal tests
+    
+Running Redis Sentinel Cluster low-level testing:
+
+    $ docker-compose build
+    $ docker-compose up -d
+    $ cd sentinel/
+    $ ./test_sentinel.sh
+    
+
+
+    
+    
+    
+    
 
 ## Changelog
 

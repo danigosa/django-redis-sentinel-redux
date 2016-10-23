@@ -1,5 +1,5 @@
 sudo: required
-dist: xenial
+dist: trusty
 
 services:
     - docker
@@ -26,7 +26,7 @@ before_script:
   - docker-compose up --build -d
 
 script:
-  - ./test.sh
+  - ./run_docker_tests.sh
 
 after_script:
   - docker-compose down
