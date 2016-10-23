@@ -1,4 +1,4 @@
-django-redis-sentinel
+django-redis-sentinel-redux
 =====================
 Dani Gonzalez / danigosa <https://github.com/danigosa>
 
