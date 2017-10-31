@@ -74,7 +74,7 @@ class SentinelConnectionFactory(ConnectionFactory):
         :raises MasterNotFoundError: if no master available
         then raises this
         """
-        return self._sentinel.master_for(self.service_name, **self.redis_client_cls_kwargs)
+        return self._sentinel.master_for(self.service_name, redis_class=self.redis_client_cls, **self.redis_client_cls_kwargs)
 
     def connect_slave(self, force_slave=False):
         """
